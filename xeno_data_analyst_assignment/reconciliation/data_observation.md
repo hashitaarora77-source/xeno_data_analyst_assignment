@@ -1,0 +1,3 @@
+# Data Observation
+
+One thing that surprised me was that a customer can appear multiple times within the same campaign without those rows necessarily representing a retry. For example, customer C20 appears twice in standalone campaign 9101, and both sends are legitimate separate events according to the data dictionary. This means a simple `COUNT(DISTINCT customer_id)` would undercount the target base. In contrast, repeated customers across campaigns linked through `parent_id` represent retries of the same underlying communication and should only be counted once. This distinction was the key difference between a straightforward customer-level aggregation and the reported `target_base` of 22.
